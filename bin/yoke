@@ -1,6 +1,7 @@
 #! /usr/bin/ruby
 
 require "thor"
+require "yoke"
 
 class YokeCommand < Thor
   default_command :up
@@ -17,7 +18,7 @@ class YokeCommand < Thor
 
   desc "list", "List all the aliases."
   def list
-    puts "list"
+    Yoke::Base.list
   end
 end
 
