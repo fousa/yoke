@@ -1,5 +1,9 @@
 require "yoke/version"
 
 module Yoke
-  # Your code goes here...
+  class << self
+    def run(cmd)
+      puts system("#{cmd}")
+    end
+  end
 end
