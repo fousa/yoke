@@ -1,0 +1,14 @@
+#! /usr/bin/ruby
+
+require "thor"
+
+class YokeCommand < Thor
+  default_command :setup
+  
+  desc "setup", "Generate the configuration file."
+  def setup
+    puts "setup"
+  end
+end
+
+YokeCommand.start
