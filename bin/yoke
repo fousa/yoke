@@ -8,12 +8,12 @@ class YokeCommand < Thor
 
   desc "up [NAME]", "Create the alias for the current directory with the current directory name or use the given name as the alias."
   def up(name=nil)
-    puts "up"
+    Yoke::Base.add(name)
   end
 
   desc "down [NAME]", "Remove the alias for the current directory or remove the alias with the given name."
   def down(name=nil)
-    puts "down"
+    Yoke::Base.remove(name)
   end
 
   desc "list", "List all the aliases."

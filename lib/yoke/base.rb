@@ -5,6 +5,26 @@ module Yoke
     FILENAME = ".yoke"
 
     class << self
+      def add(name=nil)
+        path = Dir.pwd
+        name = name || File.basename(path)
+        if Yoke::Alias.add(path, name)
+          puts "--- add #{name} as alias for #{path}"
+        else
+          puts "--- alias with name #{name} already exists"
+        end
+      end
+
+      def remove(name=nil)
+        path = Dir.pwd
+        name = name || File.basename(path)
+        if Yoke::Alias.remove(path, name)
+          puts "--- remove #{name}"
+        else
+          puts "--- alias with name #{name} is not set"
+        end
+      end
+
       def list
         list = Yoke::Alias.list
         if list.count > 0
@@ -16,6 +36,10 @@ module Yoke
         else
           puts "--- no aliases set"
         end
+      end
+
+      def directory?(path)
+        File.directory?(path)
       end
 
       def alias_file_path
