@@ -1,10 +1,15 @@
 require "yoke/alias"
+require "yoke/zsh"
 
 module Yoke
   class Base
     FILENAME = ".yoke"
 
     class << self
+      def setup
+        Yoke::Zsh.setup
+      end
+
       def add(name=nil)
         path = Dir.pwd
         name = name || File.basename(path)

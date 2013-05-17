@@ -20,6 +20,11 @@ class YokeCommand < Thor
   def list
     Yoke::Base.list
   end
+
+  desc "setup", "Setup yoke with ZSH/BASH."
+  def setup
+    Yoke::Base.setup
+  end
 end
 
 YokeCommand.start
