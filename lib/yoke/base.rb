@@ -1,5 +1,6 @@
 require "yoke/alias"
 require "yoke/zsh"
+require "yoke/bash"
 
 module Yoke
   class Base
@@ -7,40 +8,63 @@ module Yoke
 
     class << self
       def setup
-        Yoke::Zsh.setup
+        if %x[echo $SHELL].include?("zsh")
+          Yoke::Zsh.setup
+        else
+          Yoke::Bash.setup
+        end
       end
 
       def add(name=nil)
+        puts yoke_text
+
         path = Dir.pwd
         name = name || File.basename(path)
         if Yoke::Alias.add(path, name)
-          puts "--- add #{name} as alias for #{path}"
+          puts_text("")
+          puts_text("Added #{name} as alias for #{path}")
         else
-          puts "--- alias with name #{name} already exists"
+          puts_text("")
+          puts_text("The alias with #{name} already exists")
         end
+        source_text
+        puts end_text
       end
 
       def remove(name=nil)
+        puts yoke_text
+
         path = Dir.pwd
         name = name || File.basename(path)
         if Yoke::Alias.remove(path, name)
-          puts "--- remove #{name}"
+          puts_text("")
+          puts_text("Removed #{name} as an alias")
         else
-          puts "--- alias with name #{name} is not set"
+          puts_text("")
+          puts_text("The alias with #{name} is does not exist")
         end
+        delete_text(name)
+        puts end_text
       end
 
       def list
+        puts yoke_text
+
         list = Yoke::Alias.list
         if list.count > 0
-          puts "--- list aliases"
+          puts_text("")
+          puts_text("Listing all aliases")
+          puts_text("")
           longest_word_count = list.keys.group_by(&:size).max.last.last.size
           list.each do |alias_link, path|
-            printf "--- %-#{longest_word_count}s %s\n", alias_link, path
+            printf "### %-#{longest_word_count}s %s %-#{sharp_count - 9 - longest_word_count - path.size}s###\n", alias_link, path, ""
           end
         else
-          puts "--- no aliases set"
+          puts_text("")
+          puts_text("No aliases to list")
         end
+        puts_text("")
+        puts end_text
       end
 
       def directory?(path)
@@ -57,7 +81,8 @@ module Yoke
 
       def create_alias_file
         unless has_alias_file?
-          puts "--- Generate #{FILENAME} file"
+          puts_text("")
+          puts_text("Generated #{FILENAME} file")
           File.open(alias_file_path, "w") { |f| f.write(empty_file_contents) }
         end
       end
@@ -69,6 +94,49 @@ module Yoke
 # Do not alter this file or yoke will stop working correctly.
 #
 TEXT
+      end
+
+      def yoke_text
+        <<TEXT
+#############################################################################################################
+### YOKE ####################################################################################################
+#############################################################################################################
+TEXT
+      end
+
+      def end_text
+        <<TEXT
+#############################################################################################################
+TEXT
+      end
+
+      def delete_text(alias_name)
+        puts_text("")
+        puts_text("To remove this alias immediately run the following command:")
+        puts_text("")
+        puts_text("unalias #{alias_name}")
+        puts_text("")
+        puts_text("Or just start another shell and the aliases are reloaded for you!")
+        puts_text("")
+      end
+
+      def source_text
+        puts_text("")
+        puts_text("You should reload the 'yoke' aliases defined in your .yoke file.")
+        puts_text("You can do this by executing the following command:")
+        puts_text("")
+        puts_text("source ~/.yoke")
+        puts_text("")
+        puts_text("Or just start another shell and the aliases are reloaded for you!")
+        puts_text("")
+      end
+
+      def sharp_count
+        "#############################################################################################################".size
+      end
+
+      def puts_text(text)
+        printf "### %-#{sharp_count - 8}s ###\n", text
       end
     end
   end
