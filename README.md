@@ -6,21 +6,54 @@ Create an alias for the current directory with a small 'yoke' command. And when 
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'yoke'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install the gem:
 
     $ gem install yoke
 
 ## Usage
 
-TODO: Write usage instructions here
+There are only 5 functions you can use with ths gem. We'll start with the beginning.
+
+### Help
+
+Get an overview of all commands available with a small description.
+
+    yoke help
+
+### Setup
+
+Prepare your current shell (bash or zsh) so that it loads the .yoke file every time you start a new shell.
+
+    yoke setup
+
+### up
+
+Create a new alias for the current directory with the name of the current directory.
+
+    yoke
+    yoke up
+    yoke up the_alias_name
+
+You can pass an extra parameter (the\_alias\_name) so that the alias will be this name instead of the current directory name.
+
+### down
+
+Remove the alias that exists with the name of the current directory.
+
+    yoke down
+    yoke down the_alias_name
+
+You can pass an extra parameter (the\_alias\_name) so that the alias with this name will be removed instead of the current directory name.
+
+### list
+
+Show the list of aliases created with yoke.
+
+    yoke list
+
+## License
+
+Check out the LICENSE.txt file. Really awesome reading material...
 
 ## Contributing
 

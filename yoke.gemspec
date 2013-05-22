@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jelle@fousa.be"]
   spec.description   = %q{Alias your current directory for fast directory access.}
   spec.summary       = %q{Create an alias for the current directory with a small 'yoke' command. And when you're somewhere else just type the name of the create alias and you'll be cd'ed to the director.}
-  spec.homepage      = "http://fousa.be/apps/yoke"
+  spec.homepage      = "https://github.com/fousa/yoke"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

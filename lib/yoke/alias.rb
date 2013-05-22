@@ -70,7 +70,7 @@ module Yoke
       end
 
       def alias_string(name, path)
-        "alias #{name}=\"cd #{path}\""
+        "alias #{name.squish.downcase.tr(" ","_")}=\"cd #{path}\""
       end
     end
   end
