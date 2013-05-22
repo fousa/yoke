@@ -26,7 +26,7 @@ Prepare your current shell (bash or zsh) so that it loads the .yoke file every t
 
     yoke setup
 
-### up
+### Up
 
 Create a new alias for the current directory with the name of the current directory.
 
@@ -36,7 +36,7 @@ Create a new alias for the current directory with the name of the current direct
 
 You can pass an extra parameter (the\_alias\_name) so that the alias will be this name instead of the current directory name.
 
-### down
+### Down
 
 Remove the alias that exists with the name of the current directory.
 
@@ -45,7 +45,7 @@ Remove the alias that exists with the name of the current directory.
 
 You can pass an extra parameter (the\_alias\_name) so that the alias with this name will be removed instead of the current directory name.
 
-### list
+### List
 
 Show the list of aliases created with yoke.
 
