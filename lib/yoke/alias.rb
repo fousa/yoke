@@ -19,8 +19,28 @@ module Yoke
         if list.has_key?(name)
           false
         else
-          File.open(Yoke::Base.alias_file_path, 'a') do |file|
-            file.puts alias_string(name, path)
+          content = []
+          added = false
+          File.readlines(Yoke::Base.alias_file_path).each do |line|
+            if line.start_with? "alias"
+              alias_extract = line.scan(/^alias\s(\w+)\=\"cd (.+)\"$/).last
+              if alias_extract[1] == path
+                content << alias_string(name, path)
+                added = true
+              else
+                content << line
+              end
+            else
+              content << line
+            end
+          end
+          File.open(Yoke::Base.alias_file_path, "w") do |file|
+            content.each { |line| file.puts line }
+          end
+          unless added
+            File.open(Yoke::Base.alias_file_path, 'a') do |file|
+              file.puts alias_string(name, path)
+            end
           end
           true
         end
