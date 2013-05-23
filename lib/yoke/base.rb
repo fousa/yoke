@@ -13,6 +13,7 @@ module Yoke
         else
           Yoke::Bash.setup
         end
+        create_alias_file
       end
 
       def add(name=nil)
