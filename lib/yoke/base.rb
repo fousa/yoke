@@ -8,12 +8,21 @@ module Yoke
 
     class << self
       def setup
+        puts yoke_text
+        puts_text("")
+        puts_text("Prepared the shell.")
+
         if %x[echo $SHELL].include?("zsh")
           Yoke::Zsh.setup
         else
           Yoke::Bash.setup
         end
         create_alias_file
+
+        puts_text("")
+        puts_text("Run yoke help to check out the available options.")
+        puts_text("")
+        puts end_text
       end
 
       def add(name=nil)
