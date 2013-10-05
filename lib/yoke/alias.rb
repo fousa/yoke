@@ -7,7 +7,7 @@ module Yoke
         aliases = {}
         File.readlines(Yoke::Base.alias_file_path).each do |line|
           if line.start_with? "alias"
-            alias_extract = line.scan(/^alias\s(\w+)\=\"cd (.+)\"$/).last
+            alias_extract = line.scan(/^alias\s(\w+)\=\"cd '(.+)'\"$/).last
             aliases[alias_extract[0]] = alias_extract[1]
           end
         end
@@ -23,7 +23,7 @@ module Yoke
           added = false
           File.readlines(Yoke::Base.alias_file_path).each do |line|
             if line.start_with? "alias"
-              alias_extract = line.scan(/^alias\s(\w+)\=\"cd (.+)\"$/).last
+              alias_extract = line.scan(/^alias\s(\w+)\=\"cd '(.+)'\"$/).last
               if alias_extract[1] == path
                 content << alias_string(name, path)
                 added = true
@@ -53,7 +53,7 @@ module Yoke
           content = []
           File.readlines(Yoke::Base.alias_file_path).each do |line|
             if line.start_with? "alias"
-              alias_extract = line.scan(/^alias\s(\w+)\=\"cd (.+)\"$/).last
+              alias_extract = line.scan(/^alias\s(\w+)\=\"cd '(.+)'\"$/).last
               if alias_extract[0] != name
                 content << line
               end
