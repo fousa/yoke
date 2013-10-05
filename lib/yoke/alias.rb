@@ -70,7 +70,7 @@ module Yoke
       end
 
       def alias_string(name, path)
-        "alias #{name.split.join('_').downcase}=\"cd #{path}\""
+        "alias #{name.split.join('_').downcase}=\"cd '#{path}'\""
       end
     end
   end
